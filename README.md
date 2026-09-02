@@ -1,3 +1,19 @@
+# InternMatch
+
+## DSA & OOP Based Internship Recommendation & Skill-Gap Analysis System
+
+InternMatch is a C++-based project that helps students find suitable internship opportunities based on their CGPA, branch, and skills.
+
+## Project
+
+The project focuses on:
+- Internship Recommendation
+- Eligibility Checking
+- Skill Matching
+- Skill-Gap Analysis
+
+The system uses DSA and OOP concepts to process internship data and provide relevant recommendations.
+
 ## Technologies Used
 - C++
 - DSA
@@ -31,7 +47,7 @@
 
 ## Project Progress
 
-**Phase 1 – Completed**
+**Phase 1 – In Progress**
 - Problem statement and objectives finalized
 - Project workflow designed
 - Internship data prepared
@@ -39,7 +55,7 @@
 - Student class created
 - Internship class created
 
-**Phase 2 – In Progress**
+**Phase 2 – Planned**
 - API integration
 - Data processing
 - Eligibility checking
@@ -53,6 +69,24 @@
 - Final implementation
 - Output verification
 - Final documentation
+
+## Repository Structure
+
+InternMatch/
+├── Phase-1/
+│   ├── PPT/
+│   ├── Report/
+│   └── Code/
+└── README.md
+
+## How to Compile and Run
+
+g++ main.cpp -I/opt/homebrew/opt/curl/include -L/opt/homebrew/opt/curl/lib -lcurl -o main
+./main
+
+## Assumptions
+
+Since public APIs do not provide college-specific fields such as minimum CGPA or eligible branch, fixed representative values are used for these fields for demonstration purposes.
 
 ## References
 - libcurl Documentation – https://curl.se/libcurl/
