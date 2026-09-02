@@ -91,6 +91,7 @@ g++ main.cpp -I/opt/homebrew/opt/curl/include -L/opt/homebrew/opt/curl/lib -lcur
 
 Since public APIs do not provide college-specific fields such as minimum CGPA or eligible branch, fixed representative values are used for these fields for demonstration purposes.
 
+
 ## References
 - libcurl Documentation – https://curl.se/libcurl/
 - nlohmann/json Library – https://github.com/nlohmann/json
