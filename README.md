@@ -17,10 +17,10 @@ The system uses DSA and OOP concepts to process internship data and provide rele
 ## Team
 
 | Name | Role | Student ID |
-|---|---|---|
-| Jigyasa Rana | Team Lead | 2510380058 |
-| Masoom Singh | Member | 2510370548 |
-| Kashvi Pandey | Member | 2510012207 |
+|---|---|
+| Jigyasa Rana | Team Lead |
+| Masoom Singh | Member | 
+| Kashvi Pandey | Member |
 
 **Project ID:** DSCPP-III-2026-T024
 **Mentor:** Dr. Siddhant Thapliyal
