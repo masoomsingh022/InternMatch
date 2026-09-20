@@ -30,7 +30,17 @@ class Student{
             skills.push_back(oneSkill);
           }
         }
-        void display(){
+         float getcgpa(){
+          return cgpa;
+        }
+        string getBranch(){
+          return branch;
+        }
+        vector<string> getSkills()
+        {
+          return skills;
+        }
+          void display(){
           int i;
           cout<<"Name:"<<name<<endl;
           cout<<"Branch:"<<branch<<endl;
@@ -42,4 +52,5 @@ class Student{
           }
           cout<<endl;
         }
+
 };
