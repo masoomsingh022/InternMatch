@@ -1,6 +1,5 @@
 # InternMatch
 
-
 ## DSA & OOP Based Internship Recommendation & Skill-Gap Analysis System
 
 InternMatch is a C++-based project that helps students find suitable internship opportunities based on their CGPA, branch, and skills.
@@ -36,6 +35,7 @@ The system uses DSA and OOP concepts to process internship data and provide rele
 - Classes and Objects
 - Constructors
 - Encapsulation
+- Inheritance
 
 ### Classes Implemented
 - Student
@@ -48,22 +48,23 @@ The system uses DSA and OOP concepts to process internship data and provide rele
 
 ## Project Progress
 
-**Phase 1 – In Progress**
+**Phase 1 – Completed**
 - Problem statement and objectives finalized
 - Project workflow designed
 - Internship data prepared
 - Student data requirements finalized
-- Student class created
-- Internship class created
+- Student class created and tested
+- Internship class created and tested
+- Real-time API integration working
 
-**Phase 2 – Planned**
-- API integration
-- Data processing
-- Eligibility checking
-- Skill matching
-- Match percentage calculation
-- Skill-gap analysis
-- Internship ranking
+**Phase 2 – In Progress**
+- Getter functions added to Student and Internship classes
+- Code separated into .h (declaration) and .cpp (implementation) files
+- Linked List implementation
+- Eligibility checking based on CGPA and branch
+- Skill matching using hashing
+- Match percentage calculation and skill-gap analysis
+- Internship ranking using priority queue
 
 **Phase 3 – Planned**
 - Testing
@@ -73,25 +74,21 @@ The system uses DSA and OOP concepts to process internship data and provide rele
 
 ## Repository Structure
 
-```text
 InternMatch/
 ├── Phase-1/
 │   ├── PPT/
 │   ├── Report/
 │   └── Code/
 └── README.md
-```
-
 
 ## How to Compile and Run
 
-g++ main.cpp -I/opt/homebrew/opt/curl/include -L/opt/homebrew/opt/curl/lib -lcurl -o main
+g++ main.cpp Student.cpp Internship.cpp -I/opt/homebrew/opt/curl/include -L/opt/homebrew/opt/curl/lib -lcurl -o main
 ./main
 
 ## Assumptions
 
 Since public APIs do not provide college-specific fields such as minimum CGPA or eligible branch, fixed representative values are used for these fields for demonstration purposes.
-
 
 ## References
 - libcurl Documentation – https://curl.se/libcurl/
