@@ -73,14 +73,14 @@ The system uses DSA and OOP concepts to process internship data and provide rele
 - Final documentation
 
 ## Repository Structure
+```text
 InternMatch/
-│
 ├── Phase-1/
 │   ├── PPT/
 │   ├── Report/
 │   └── Code/
-│
 └── README.md
+```
 
 ## How to Compile and Run
 
