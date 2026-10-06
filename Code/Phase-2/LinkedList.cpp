@@ -2,35 +2,34 @@
 #include <iostream>
 using namespace std;
 
-Node::Node(Internship i):data(i){
+Node::Node(Internship i) : data(i) {
     next = nullptr;
 }
 
-LinkedList::LinkedList(){
+LinkedList::LinkedList() {
     head = nullptr;
 }
 
-void LinkedList::insert(Internship i){
+// Inserts a new Internship at the end of the list. O(n) due to tail traversal.
+void LinkedList::insert(Internship i) {
     Node* newNode = new Node(i);
 
-    if(head == nullptr){
+    if (head == nullptr) {
         head = newNode;
+        return;
     }
-    else{
-        Node* temp = head;
 
-        while(temp->next != nullptr){
-            temp = temp->next;
-        }
-
-        temp->next = newNode;
+    Node* temp = head;
+    while (temp->next != nullptr) {
+        temp = temp->next;
     }
+    temp->next = newNode;
 }
 
-void LinkedList::display(){
+// Traverses and prints all stored internships. O(n).
+void LinkedList::display() {
     Node* temp = head;
-
-    while(temp != nullptr){
+    while (temp != nullptr) {
         temp->data.display();
         temp = temp->next;
     }
