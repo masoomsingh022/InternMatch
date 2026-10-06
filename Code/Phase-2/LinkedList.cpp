@@ -10,7 +10,7 @@ LinkedList::LinkedList() {
     head = nullptr;
 }
 
-// Inserts a new Internship at the end of the list. O(n) due to tail traversal.
+
 void LinkedList::insert(Internship i) {
     Node* newNode = new Node(i);
 
@@ -26,7 +26,6 @@ void LinkedList::insert(Internship i) {
     temp->next = newNode;
 }
 
-// Traverses and prints all stored internships. O(n).
 void LinkedList::display() {
     Node* temp = head;
     while (temp != nullptr) {
