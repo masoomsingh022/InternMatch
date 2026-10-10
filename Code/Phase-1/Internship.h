@@ -1,19 +1,43 @@
-#include<iostream>
-#include<vector>
-#include<string>
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
-class Internship{
+// Class to store and manage internship details
+class Internship
+{
     private:
-      string company;
-      string role;
-      vector<string> requiredSkills;
-      float minCgpa;
-      string eligibleBranch;
+        // Name of the company offering the internship
+        string company;
+
+        // Job role or internship position
+        string role;
+
+        // List of skills required for the internship
+        vector<string> requiredSkills;
+
+        // Minimum CGPA required for eligibility
+        float minCgpa;
+
+        // Branch eligible for the internship
+        string eligibleBranch;
+
     public:
-      Internship(string c, string r, vector<string> skills, float cgpa, string branch);
-      void display();
-      float getMinCgpa();
-      string getEligibleBranch();
-      vector<string> getRequiredSkills();
+        // Constructor to initialize internship details
+        Internship(string c, string r, vector<string> skills,
+                   float cgpa, string branch);
+
+        // Function to display internship information
+        void display();
+
+        // Getter function to return the minimum CGPA
+        float getMinCgpa();
+
+        // Getter function to return the eligible branch
+        string getEligibleBranch();
+
+        // Getter function to return the required skills
+        vector<string> getRequiredSkills();
 };
+```
