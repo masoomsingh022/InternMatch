@@ -1,58 +1,56 @@
-```cpp
 #include "Internship.h"
 
-// Constructor to initialize internship details
-Internship::Internship(string c, string r, vector<string> skills, float cgpa, string branch){
-    // Initialize company name
+// Constructor: internship ki details set karta hai
+Internship::Internship(string c, string r, vector<string> skills, float cgpa, string branch) {
+    // Company ka naam set karo
     company = c;
 
-    // Initialize internship role
+    // Internship ka role set karo
     role = r;
 
-    // Store the skills required for the internship
+    // Internship ke liye zaroori skills save karo
     requiredSkills = skills;
 
-    // Set the minimum CGPA required
+    // Minimum CGPA set karo
     minCgpa = cgpa;
 
-    // Set the eligible branch
+    // Eligible branch set karo
     eligibleBranch = branch;
 }
 
-// Function to display all internship details
-void Internship::display(){
-    // Display company name
+// Internship ki saari details display karta hai
+void Internship::display() {
+    // Company ka naam print karo
     cout << "Company: " << company << endl;
 
-    // Display internship role
+    // Role print karo
     cout << "Role: " << role << endl;
 
-    // Display minimum CGPA requirement
+    // Minimum CGPA print karo
     cout << "Min CGPA: " << minCgpa << endl;
 
-    // Display eligible branch
+    // Eligible branch print karo
     cout << "Eligible Branch: " << eligibleBranch << endl;
 
-    // Display all required skills
+    // Saari required skills print karo
     cout << "Required Skills: ";
-    for(int i = 0; i < requiredSkills.size(); i++){
+    for (int i = 0; i < requiredSkills.size(); i++) {
         cout << requiredSkills[i] << ", ";
     }
     cout << endl;
 }
 
-// Getter function to return the minimum CGPA
-float Internship::getMinCgpa(){
+// Minimum CGPA return karta hai
+float Internship::getMinCgpa() {
     return minCgpa;
 }
 
-// Getter function to return the eligible branch
-string Internship::getEligibleBranch(){
+// Eligible branch return karta hai
+string Internship::getEligibleBranch() {
     return eligibleBranch;
 }
 
-// Getter function to return the list of required skills
-vector<string> Internship::getRequiredSkills(){
+// Required skills ki list return karta hai
+vector<string> Internship::getRequiredSkills() {
     return requiredSkills;
 }
-```
