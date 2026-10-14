@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 ```cpp
 // Include the LinkedList header file
+=======
+
+>>>>>>> 733ecb4 (Update Phase 2 internship matching)
 #include "LinkedList.h"
 #include <iostream>
+#include <vector>
 using namespace std;
 
+<<<<<<< HEAD
 // Constructor to initialize a node with internship data
 Node::Node(Internship i) : data(i) {
     // Initialize the next pointer to nullptr
@@ -22,19 +28,38 @@ void LinkedList::insert(Internship i) {
     Node* newNode = new Node(i);
 
     // If the linked list is empty, make the new node the first node
+=======
+Node::Node(Internship i) : data(i) {
+    next = nullptr;
+}
+
+LinkedList::LinkedList() {
+    head = nullptr;
+}
+
+void LinkedList::insert(Internship i) {
+    Node* newNode = new Node(i);
+
+>>>>>>> 733ecb4 (Update Phase 2 internship matching)
     if (head == nullptr) {
         head = newNode;
         return;
     }
 
+<<<<<<< HEAD
     // Start traversing the list from the head node
     Node* temp = head;
 
     // Move to the last node of the linked list
+=======
+    Node* temp = head;
+
+>>>>>>> 733ecb4 (Update Phase 2 internship matching)
     while (temp->next != nullptr) {
         temp = temp->next;
     }
 
+<<<<<<< HEAD
     // Connect the last node to the new node
     temp->next = newNode;
 }
@@ -47,10 +72,34 @@ void LinkedList::display() {
     // Traverse the list until the end is reached
     while (temp != nullptr) {
         // Display the internship data of the current node
+=======
+    temp->next = newNode;
+}
+
+void LinkedList::display() {
+    Node* temp = head;
+
+    while (temp != nullptr) {
+>>>>>>> 733ecb4 (Update Phase 2 internship matching)
         temp->data.display();
 
         // Move to the next node
         temp = temp->next;
     }
 }
+<<<<<<< HEAD
 ```
+=======
+
+vector<Internship> LinkedList::getAllInternships() {
+    vector<Internship> result;
+    Node* temp = head;
+
+    while (temp != nullptr) {
+        result.push_back(temp->data);
+        temp = temp->next;
+    }
+
+    return result;
+}
+>>>>>>> 733ecb4 (Update Phase 2 internship matching)
