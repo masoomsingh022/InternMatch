@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-// Accepts student details and skills from the user.
+// Takes the student's details and skills as input.
 void Student::input(){
     cout << "enter name\n";
     getline(cin, name);
@@ -23,7 +23,7 @@ void Student::input(){
     string skillInput;
     getline(cin, skillInput);
 
-    // Splits the comma-separated input into individual skills.
+    // Separates the skills using commas and stores each skill in the vector.
     stringstream ss(skillInput);
     string oneSkill;
 
@@ -42,12 +42,12 @@ string Student::getBranch(){
     return branch;
 }
 
-// Returns the list of skills provided by the student.
+// Returns all the skills stored in the vector.
 vector<string> Student::getSkills(){
     return skills;
 }
 
-// Displays the student's details and skills.
+// Displays the student's personal details and skills.
 void Student::display(){
     int i;
     cout << "Name:" << name << endl;
