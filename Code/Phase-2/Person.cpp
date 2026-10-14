@@ -1,7 +1,7 @@
 ```cpp
 #include "Person.h"
 
-// Returns the person's name.
+// Returns the name stored in the Person class.
 string Person::getName(){
     return name;
 }
