@@ -142,7 +142,7 @@ int main() {
 
         for (int k = 0; k < 5 && k < results.size(); k++) {
             results[k].first.display();
-            cout << "Match Percentage: "
+            cout << "Keyword Match: "
                  << results[k].second << "%\n\n";
         }
     }
