@@ -73,6 +73,34 @@ int main() {
                 }
             }
 
+            // Keep only technology-related roles
+            string lowerTitle = title;
+            transform(lowerTitle.begin(), lowerTitle.end(),
+                      lowerTitle.begin(),
+                      [](unsigned char c) { return tolower(c); });
+
+            vector<string> keywords = {
+                "software", "developer", "engineer", "machine learning",
+                "artificial intelligence", "data", "python", "backend",
+                "frontend", "full stack", "programming", "technology",
+                "technical", "cybersecurity", "cyber security", "devops",
+                "cloud", "qa engineer", "test automation"
+            };
+
+            bool relevantRole = false;
+
+            for (int j = 0; j < keywords.size(); j++) {
+                if (lowerTitle.find(keywords[j]) != string::npos) {
+                    relevantRole = true;
+                    break;
+                }
+            }
+
+            if (!relevantRole) {
+                continue;
+            }
+
+            // Demo eligibility criteria; these are not employer-provided
             float minCgpa = 7.0;
             string eligibleBranch = "CSE";
 
@@ -90,11 +118,13 @@ int main() {
         for (int k = 0; k < allInternships.size(); k++) {
             if (checkEligibility(s1, allInternships[k])) {
                 int matched = countMatchingSkills(s1, allInternships[k]);
-                int total = allInternships[k].getRequiredSkills().size();
+                int total = s1.getSkills().size();
 
                 float percent = calculateMatchPercent(matched, total);
 
-                results.push_back({allInternships[k], percent});
+                if (matched > 0) {
+                    results.push_back({allInternships[k], percent});
+                }
             }
         }
 

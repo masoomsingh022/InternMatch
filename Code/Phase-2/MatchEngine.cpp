@@ -1,56 +1,92 @@
-```cpp
-#include "MatchEngine.h"  // Includes the declarations required for the matching functions
+#include "MatchEngine.h"
+#include <cctype>
+#include <string>
+#include <vector>
+using namespace std;
 
-// Checks whether a student is eligible for an internship
-bool checkEligibility(Student s, Internship i) {
-
-    // Checks whether the student's CGPA meets the minimum requirement
-    // Also checks whether the student's branch matches the eligible branch
-    if (s.getcgpa() >= i.getMinCgpa() &&
-        s.getBranch() == i.getEligibleBranch()) {
-
-        return true;  // Student satisfies both eligibility conditions
+// Converts text to lowercase and removes extra spaces at the ends.
+string normalizeSkill(string skill) {
+    for (int i = 0; i < skill.length(); i++) {
+        skill[i] = tolower((unsigned char)skill[i]);
     }
 
-    return false;  // Student does not satisfy the eligibility conditions
+    int start = 0;
+    while (start < skill.length() &&
+           isspace((unsigned char)skill[start])) {
+        start++;
+    }
+
+    int end = skill.length();
+    while (end > start &&
+           isspace((unsigned char)skill[end - 1])) {
+        end--;
+    }
+
+    return skill.substr(start, end - start);
 }
 
+// Checks that a skill matches a complete word or phrase,
+// not just a part of another word.
+bool containsSkill(string text, string skill) {
+    size_t pos = text.find(skill);
 
-// Counts the number of skills that match the internship requirements
+    while (pos != string::npos) {
+        bool leftBoundary =
+            pos == 0 ||
+            !isalnum((unsigned char)text[pos - 1]);
+
+        size_t endPos = pos + skill.length();
+
+        bool rightBoundary =
+            endPos == text.length() ||
+            !isalnum((unsigned char)text[endPos]);
+
+        if (leftBoundary && rightBoundary) {
+            return true;
+        }
+
+        pos = text.find(skill, pos + 1);
+    }
+
+    return false;
+}
+
+// Checks CGPA and branch eligibility.
+bool checkEligibility(Student s, Internship i) {
+    return s.getcgpa() >= i.getMinCgpa() &&
+           normalizeSkill(s.getBranch()) ==
+           normalizeSkill(i.getEligibleBranch());
+}
+
+// Counts student skills found in the internship role or tags.
 int countMatchingSkills(Student s, Internship i) {
+    int count = 0;
 
-    int count = 0;  // Initially, no matching skills have been found
+    vector<string> skills = s.getSkills();
+    vector<string> tags = i.getRequiredSkills();
 
-    // Iterates through all the skills possessed by the student
-    for (int x = 0; x < s.getSkills().size(); x++) {
+    string jobInfo = normalizeSkill(i.getRole());
 
-        // Compares the current student skill with each required internship skill
-        for (int y = 0; y < i.getRequiredSkills().size(); y++) {
+    for (int j = 0; j < tags.size(); j++) {
+        jobInfo += " " + normalizeSkill(tags[j]);
+    }
 
-            // Checks whether the student skill matches a required skill
-            if (s.getSkills()[x] == i.getRequiredSkills()[y]) {
+    for (int x = 0; x < skills.size(); x++) {
+        string skill = normalizeSkill(skills[x]);
 
-                count++;  // Increases the count when a matching skill is found
-
-                break;  // Stops checking once a match is found for this skill
-            }
+        if (!skill.empty() && containsSkill(jobInfo, skill)) {
+            count++;
         }
     }
 
-    return count;  // Returns the total number of matching skills
+    return count;
 }
 
-
-// Calculates the percentage of required skills matched by the student
+// Calculates the percentage of student skills matched.
 float calculateMatchPercent(int matched, int total) {
-
-    // Prevents division by zero when there are no required skills
     if (total == 0) {
         return 0;
     }
 
-    // Calculates the match percentage using matched and total skills
-    // Converts total to float to perform floating-point division
-    return (matched / (float)total) * 100;
+    return matched * 100.0f / total;
 }
-```

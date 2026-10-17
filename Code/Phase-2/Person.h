@@ -1,4 +1,3 @@
-```cpp
 #include<string>
 using namespace std;
 
@@ -12,4 +11,3 @@ public:
       // Declares a function to return the person's name.
       string getName();
 };
-```

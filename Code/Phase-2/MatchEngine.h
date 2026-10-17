@@ -1,4 +1,3 @@
-```cpp
 #ifndef MATCHENGINE_H
 #define MATCHENGINE_H
 
@@ -18,4 +17,3 @@ int countMatchingSkills(Student s, Internship i);
 float calculateMatchPercent(int matched, int total);
 
 #endif
-```

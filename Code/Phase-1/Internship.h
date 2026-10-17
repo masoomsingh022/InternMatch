@@ -22,6 +22,7 @@ public:
 
     void display();
 
+    string getRole();
     float getMinCgpa();
     string getEligibleBranch();
     vector<string> getRequiredSkills();

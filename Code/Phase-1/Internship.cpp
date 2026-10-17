@@ -54,3 +54,9 @@ string Internship::getEligibleBranch() {
 vector<string> Internship::getRequiredSkills() {
     return requiredSkills;
 }
+
+
+// Returns the internship role
+string Internship::getRole() {
+    return role;
+}
