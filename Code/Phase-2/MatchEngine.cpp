@@ -16,38 +16,60 @@ static string normalizeText(string value) {
     return value;
 }
 
-// Checks actual requirements only when the API supplies them.
-// Missing values remain unverified; we do not invent requirements.
-bool checkEligibility(Student s, Internship i) {
+// Eligibility has three possible outcomes:
+// 1 = Eligible (all supplied requirements passed)
+// 0 = Not eligible (a supplied requirement failed)
+// -1 = Unverified (CGPA or branch requirements are missing)
+int getEligibilityStatus(Student s, Internship i) {
+    bool checkedAtLeastOneRequirement = false;
+
     float requiredCgpa = i.getMinCgpa();
-    if (requiredCgpa > 0 && s.getcgpa() < requiredCgpa)
-        return false;
+    if (requiredCgpa > 0) {
+        checkedAtLeastOneRequirement = true;
+        if (s.getcgpa() < requiredCgpa)
+            return 0;
+    }
 
     string requiredBranch = normalizeText(i.getEligibleBranch());
-    if (requiredBranch.empty() || requiredBranch == "not specified" ||
-        requiredBranch == "not provided" || requiredBranch == "unknown")
-        return true;
+    bool branchMissing = requiredBranch.empty() ||
+        requiredBranch == "not specified" ||
+        requiredBranch == "not provided" ||
+        requiredBranch == "not provided by api" ||
+        requiredBranch == "unknown" || requiredBranch == "n/a";
 
-    if (requiredBranch == "all" || requiredBranch == "any" ||
-        requiredBranch == "all branches" || requiredBranch == "any branch")
-        return true;
+    if (!branchMissing) {
+        checkedAtLeastOneRequirement = true;
+        if (requiredBranch != "all" && requiredBranch != "any" &&
+            requiredBranch != "all branches" && requiredBranch != "any branch") {
+            string studentBranch = normalizeText(s.getBranch());
+            bool branchMatches = (studentBranch == requiredBranch);
 
-    string studentBranch = normalizeText(s.getBranch());
-    if (studentBranch == requiredBranch)
-        return true;
-
-    // Supports branch lists such as "CSE, ECE / IT".
-    for (char &c : requiredBranch) {
-        if (c == ',' || c == '/' || c == ';' || c == '|')
-            c = ' ';
+            // Also support simple comma/slash/semicolon-separated branch lists.
+            for (char &c : requiredBranch) {
+                if (c == ',' || c == '/' || c == ';' || c == '|')
+                    c = ' ';
+            }
+            stringstream branchList(requiredBranch);
+            string option;
+            while (!branchMatches && branchList >> option) {
+                if (studentBranch == option)
+                    branchMatches = true;
+            }
+            if (!branchMatches)
+                return 0;
+        }
     }
-    stringstream branchList(requiredBranch);
-    string option;
-    while (branchList >> option) {
-        if (studentBranch == option)
-            return true;
-    }
-    return false;
+
+    // A pass on just one criterion is not a complete eligibility verification.
+    if (!checkedAtLeastOneRequirement || requiredCgpa <= 0 || branchMissing)
+        return -1;
+    return 1;
+}
+
+// Keep the existing bool function for compatibility with other code.
+// Unknown requirements are not treated as a confirmed rejection.
+bool checkEligibility(Student s, Internship i) {
+    return getEligibilityStatus(s, i) != 0;
 }
 
 // Exact case-insensitive matching prevents "c" matching "communication"

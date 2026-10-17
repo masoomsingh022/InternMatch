@@ -58,7 +58,7 @@ static bool hasWholeWord(const string& text, const string& word) {
 }
 
 // Exclude clearly senior positions from a student internship shortlist.
-static bool isSeniorRole(string title) {
+bool isSeniorRole(string title) {
     title = lowerText(title);
     // Keep explicitly named internships even if the title contains one of these words.
     if (hasWholeWord(title, "intern") || hasWholeWord(title, "internship"))
@@ -98,6 +98,7 @@ struct MatchResult {
     float skillCoverage;
     float titleFit;
     float finalScore;
+    int eligibilityStatus; // 1 = eligible, 0 = not eligible, -1 = unverified
 };
 
 int main() {
@@ -157,7 +158,10 @@ int main() {
             if (isSeniorRole(role))
                 continue;
 
-            if (checkEligibility(student, allInternships[k])) {
+            int eligibilityStatus = getEligibilityStatus(student, allInternships[k]);
+            // Exclude only when available employer requirements prove ineligibility.
+            // If requirements are missing, keep the match but clearly mark it unverified.
+            if (eligibilityStatus != 0) {
                 int matched = countMatchingSkills(student, allInternships[k]);
                 int total = (int)student.getSkills().size();
                 if (matched > 0 && total > 0) {
@@ -165,7 +169,8 @@ int main() {
                     float titleFit = calculateTitleFit(role);
                     // Simple weighted ranking: 80% skills + 20% title fit.
                     float finalScore = 0.80f * skillCoverage + 0.20f * titleFit;
-                    results.push_back({allInternships[k], skillCoverage, titleFit, finalScore});
+                    results.push_back({allInternships[k], skillCoverage, titleFit,
+                                       finalScore, eligibilityStatus});
                 }
             }
         }
@@ -175,13 +180,17 @@ int main() {
                 return a.finalScore > b.finalScore;
             });
 
-        cout << "--- Top Skill Matches (Eligibility Not Verified) ---\n\n";
+        cout << "--- Top Skill Matches (Eligibility Status Shown Per Listing) ---\n\n";
         if (results.empty()) {
             cout << "No skill matches found in the current listings. Try broader skills.\n";
         }
 
         for (int k = 0; k < 5 && k < (int)results.size(); k++) {
             results[k].internship.display();
+            if (results[k].eligibilityStatus == 1)
+                cout << "Eligibility Status: Eligible (provided requirements matched)\n";
+            else
+                cout << "Eligibility Status: Unverified (CGPA/branch requirements missing from API)\n";
             cout << "Your Skill Coverage: " << results[k].skillCoverage << "%\n";
             cout << "Role Fit Estimate: " << results[k].titleFit << "%\n";
             cout << "Estimated Match Score: " << results[k].finalScore << "%\n\n";

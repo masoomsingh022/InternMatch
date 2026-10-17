@@ -1,19 +1,28 @@
 #ifndef MATCHENGINE_H
 #define MATCHENGINE_H
 
-// Includes the Student class definition from Phase 1
 #include "../Phase-1/Student.h"
-
-// Includes the Internship class definition from Phase 1
 #include "../Phase-1/Internship.h"
 
-// Checks whether a student meets the internship eligibility criteria
+// Returns 1 = eligible, 0 = not eligible, -1 = unverified (requirements missing).
+int getEligibilityStatus(Student s, Internship i);
+
+// Compatibility helper: false only when known requirements prove ineligibility.
 bool checkEligibility(Student s, Internship i);
 
-// Counts the number of skills matching the internship requirements
+// Counts each student skill at most once when it appears in the API tags/title.
 int countMatchingSkills(Student s, Internship i);
 
-// Calculates the percentage of matching skills
+// Percentage of entered student skills found in a listing's tags/title.
 float calculateMatchPercent(int matched, int total);
+
+// Estimates title/level fit; it is a heuristic, not employer-confirmed eligibility.
+float calculateRoleFitPercent(Student s, string roleTitle);
+
+// Combines skill coverage and title/level fit: 80% skills + 20% role fit.
+float calculateOverallMatchPercent(float skillCoverage, float roleFit);
+
+// Excludes explicit senior-level roles from the student shortlist.
+bool isSeniorRole(string roleTitle);
 
 #endif
