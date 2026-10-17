@@ -3,10 +3,11 @@
 #include<string>
 #include<vector>
 #include<sstream>
+#include "../Phase-2/Person.h"
 using namespace std;
-class Student{
+
+class Student : public Person {
     private:
-      string name;
       string branch;
       int year;
       float cgpa;
