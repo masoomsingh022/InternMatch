@@ -1,21 +1,22 @@
 #pragma once
+#include "../Phase-2/Person.h"
 #include<iostream>
 #include<string>
 #include<vector>
 #include<sstream>
 using namespace std;
-class Student{
+
+class Student : public Person {
     private:
-      string name;
       string branch;
       int year;
       float cgpa;
-      vector<string>skills;
+      vector<string> skills;
+
     public:
        void input();
        float getcgpa();
        string getBranch();
        vector<string> getSkills();
        void display();
-
 };
