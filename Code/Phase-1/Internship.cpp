@@ -20,27 +20,26 @@ Internship::Internship(string c, string r, vector<string> skills, float cgpa, st
 
 // Internship ki saari details display karta hai
 void Internship::display() {
-    // Company ka naam print karo
     cout << "Company: " << company << endl;
-
-    // Role print karo
     cout << "Role: " << role << endl;
 
-    // Minimum CGPA print karo
-    cout << "Min CGPA: " << minCgpa << endl;
+    if (minCgpa > 0)
+        cout << "Min CGPA: " << minCgpa << endl;
+    else
+        cout << "Min CGPA: Not provided by API" << endl;
 
-    // Eligible branch print karo
-    cout << "Eligible Branch: " << eligibleBranch << endl;
+    if (eligibleBranch.empty() ||
+        eligibleBranch == "Not specified")
+        cout << "Eligible Branch: Not provided by API" << endl;
+    else
+        cout << "Eligible Branch: " << eligibleBranch << endl;
 
-    // Saari required skills print karo
-    cout << "Required Skills: ";
-    for (int i = 0; i < requiredSkills.size(); i++) {
+    cout << "API Tags: ";
+    for (int i = 0; i < requiredSkills.size(); i++)
         cout << requiredSkills[i] << ", ";
-    }
     cout << endl;
 }
 
-// Minimum CGPA return karta hai
 float Internship::getMinCgpa() {
     return minCgpa;
 }

@@ -73,8 +73,27 @@ int main() {
                 }
             }
 
-            float minCgpa = 7.0;
-            string eligibleBranch = "CSE";
+            float minCgpa = 0.0;
+            string eligibleBranch = "Not specified";
+
+            string description = job.value("description", "");
+            string searchable = title + " " + description;
+            for (char &c : searchable)
+                c = tolower((unsigned char)c);
+
+            vector<string> keywords = {
+                "python", "sql", "java", "c++", "machine learning",
+                "artificial intelligence", "deep learning", "data science",
+                "excel", "javascript", "react", "html", "css", "git",
+                "linux", "docker", "aws", "tensorflow", "pytorch",
+                "pandas", "numpy", "communication"
+            };
+
+            for (string keyword : keywords) {
+                if (searchable.find(keyword) != string::npos)
+                    tags.push_back(keyword);
+            }
+
 
             Internship internship(company, title, tags, minCgpa, eligibleBranch);
             myList.insert(internship);
@@ -90,11 +109,12 @@ int main() {
         for (int k = 0; k < allInternships.size(); k++) {
             if (checkEligibility(s1, allInternships[k])) {
                 int matched = countMatchingSkills(s1, allInternships[k]);
-                int total = allInternships[k].getRequiredSkills().size();
+                int total = s1.getSkills().size();
 
-                float percent = calculateMatchPercent(matched, total);
-
-                results.push_back({allInternships[k], percent});
+                if (matched > 0 && total > 0) {
+                    float percent = calculateMatchPercent(matched, total);
+                    results.push_back({allInternships[k], percent});
+                }
             }
         }
 
@@ -104,15 +124,15 @@ int main() {
                  return a.second > b.second;
              });
 
-        cout << "\n--- Top Matched Internships ---\n\n";
+        cout << "\n--- Top Skill Matches (Eligibility Not Verified) ---\n\n";
 
         if (results.empty()) {
-            cout << "No eligible internships found.\n";
+            cout << "No skill matches found in the current listings. Try broader skills.\n";
         }
 
         for (int k = 0; k < 5 && k < results.size(); k++) {
             results[k].first.display();
-            cout << "Match Percentage: "
+            cout << "Your Skill Coverage: "
                  << results[k].second << "%\n\n";
         }
     }
