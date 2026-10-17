@@ -1,45 +1,80 @@
-
 #include "MatchEngine.h"
 #include <cctype>
+#include <sstream>
 #include <string>
+#include <vector>
 using namespace std;
 
-// Checks whether a student is eligible for an internship
-bool checkEligibility(Student s, Internship i) {
-    // API does not provide reliable CGPA/branch requirements.
-    return true;
+// Lowercase text and remove spaces from both ends.
+static string normalizeText(string value) {
+    while (!value.empty() && isspace((unsigned char)value.front()))
+        value.erase(value.begin());
+    while (!value.empty() && isspace((unsigned char)value.back()))
+        value.pop_back();
+    for (char &c : value)
+        c = (char)tolower((unsigned char)c);
+    return value;
 }
 
+// Checks actual requirements only when the API supplies them.
+// Missing values remain unverified; we do not invent requirements.
+bool checkEligibility(Student s, Internship i) {
+    float requiredCgpa = i.getMinCgpa();
+    if (requiredCgpa > 0 && s.getcgpa() < requiredCgpa)
+        return false;
+
+    string requiredBranch = normalizeText(i.getEligibleBranch());
+    if (requiredBranch.empty() || requiredBranch == "not specified" ||
+        requiredBranch == "not provided" || requiredBranch == "unknown")
+        return true;
+
+    if (requiredBranch == "all" || requiredBranch == "any" ||
+        requiredBranch == "all branches" || requiredBranch == "any branch")
+        return true;
+
+    string studentBranch = normalizeText(s.getBranch());
+    if (studentBranch == requiredBranch)
+        return true;
+
+    // Supports branch lists such as "CSE, ECE / IT".
+    for (char &c : requiredBranch) {
+        if (c == ',' || c == '/' || c == ';' || c == '|')
+            c = ' ';
+    }
+    stringstream branchList(requiredBranch);
+    string option;
+    while (branchList >> option) {
+        if (studentBranch == option)
+            return true;
+    }
+    return false;
+}
+
+// Exact case-insensitive matching prevents "c" matching "communication"
+// and "java" matching "javascript".
 int countMatchingSkills(Student s, Internship i) {
     int count = 0;
     vector<string> skills = s.getSkills();
     vector<string> tags = i.getRequiredSkills();
 
     for (string skill : skills) {
-        for (char &c : skill) c = tolower((unsigned char)c);
-        while (!skill.empty() && skill.front() == ' ')
-            skill.erase(skill.begin());
-        while (!skill.empty() && skill.back() == ' ')
-            skill.pop_back();
+        skill = normalizeText(skill);
+        if (skill.empty())
+            continue;
 
         for (string tag : tags) {
-            for (char &c : tag) c = tolower((unsigned char)c);
-            if (!skill.empty() && tag.find(skill) != string::npos) {
+            tag = normalizeText(tag);
+            if (skill == tag) {
                 count++;
-                break;
+                break; // Count each student skill once.
             }
         }
     }
     return count;
 }
 
-
-// Calculates skill match percentage
 float calculateMatchPercent(int matched, int total) {
-
-    if (total == 0) {
-        return 0;
-    }
-
-    return (matched / (float)total) * 100;
+    if (total <= 0)
+        return 0.0f;
+    return (matched * 100.0f) / total;
 }

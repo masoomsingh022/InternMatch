@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <iostream>
@@ -25,4 +24,5 @@ public:
     float getMinCgpa();
     string getEligibleBranch();
     vector<string> getRequiredSkills();
+    string getRole();
 };
