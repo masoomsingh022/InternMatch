@@ -70,3 +70,14 @@ Testing/
 .DS_Store
 main
 output/
+# Local editor settings
+.vscode/settings.json
+
+# Local backup files
+Code/Phase-1/*.backup
+Code/Phase-1/*.before_matching_fix
+Code/Phase-1/*.finalfix-backup
+Code/Phase-1/*.loop-backup
+Code/Phase-2/*.backup
+Code/Phase-2/*.before_matching_fix
+Code/Phase-2/*.finalfix-backup
