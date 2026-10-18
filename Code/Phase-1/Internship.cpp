@@ -1,4 +1,3 @@
-
 #include "Internship.h"
 
 // Constructor: Initializes internship details
