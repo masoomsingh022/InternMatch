@@ -1,6 +1,7 @@
+
 #include "Internship.h"
 
-// Constructor: internship ki details set karta hai
+// Constructor: Initializes internship details
 Internship::Internship(string c, string r, vector<string> skills, float cgpa, string branch) {
     company = c;
     role = r;
@@ -9,7 +10,7 @@ Internship::Internship(string c, string r, vector<string> skills, float cgpa, st
     eligibleBranch = branch;
 }
 
-// Internship ki saari details display karta hai
+// Displays all internship details
 void Internship::display() {
     cout << "Company: " << company << endl;
     cout << "Role: " << role << endl;
@@ -42,7 +43,7 @@ vector<string> Internship::getRequiredSkills() {
     return requiredSkills;
 }
 
-// New getter so ranking code can inspect the role title.
+// New getter to allow the ranking code to access the role title.
 string Internship::getRole() {
     return role;
 }
