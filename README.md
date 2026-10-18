@@ -113,8 +113,6 @@ InternMatch/
 └── README.md
 ```
 
-*Note: The file structure above is indicative. Update filenames and locations if they differ from the actual repository.*
-
 ## How to Compile and Run
 
 Compilation depends on the source files, header dependencies, and installed libraries.
@@ -133,8 +131,6 @@ Run the compiled program:
 ```bash
 ./main
 ```
-
-**Note:** Run these commands from the appropriate source directory and include all required `.cpp` files. The exact compilation command may need adjustment based on the final project structure and API integration files.
 
 ## Assumptions and Limitations
 
