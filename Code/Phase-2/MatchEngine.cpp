@@ -60,7 +60,7 @@ int getEligibilityStatus(Student s, Internship i) {
         }
     }
 
-    // A pass on just one criterion is not a complete eligibility verification.
+    //A pass on just one criterion is not a complete eligibility verification.
     if (!checkedAtLeastOneRequirement || requiredCgpa <= 0 || branchMissing)
         return -1;
     return 1;
@@ -94,7 +94,6 @@ int countMatchingSkills(Student s, Internship i) {
     }
     return count;
 }
-
 float calculateMatchPercent(int matched, int total) {
     if (total <= 0)
         return 0.0f;
