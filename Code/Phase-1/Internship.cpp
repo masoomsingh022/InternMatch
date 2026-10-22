@@ -1,6 +1,5 @@
 #include "Internship.h"
 
-// Constructor: Initializes internship details
 Internship::Internship(string c, string r, vector<string> skills, float cgpa, string branch) {
     company = c;
     role = r;
@@ -9,7 +8,6 @@ Internship::Internship(string c, string r, vector<string> skills, float cgpa, st
     eligibleBranch = branch;
 }
 
-// Displays all internship details
 void Internship::display() {
     cout << "Company: " << company << endl;
     cout << "Role: " << role << endl;
