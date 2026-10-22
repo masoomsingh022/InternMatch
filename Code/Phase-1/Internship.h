@@ -5,7 +5,6 @@
 #include <string>
 using namespace std;
 
-//Class to store internship details
 class Internship
 {
 private:
