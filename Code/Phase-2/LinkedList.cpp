@@ -2,47 +2,42 @@
 #include <iostream>
 using namespace std;
 
-Node::Node(Internship i) : data(i) {
-    next = nullptr;
+Node::Node(Internship i) : data(std::move(i)), next(nullptr) {}
+
+LinkedList::LinkedList() : head(nullptr), tail(nullptr), count(0) {}
+
+LinkedList::~LinkedList() {
+    while (head != nullptr) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
 }
 
-LinkedList::LinkedList() {
-    head = nullptr;
-}
-
-
-void LinkedList::insert(Internship i) {
+void LinkedList::insert(const Internship& i) {
     Node* newNode = new Node(i);
 
     if (head == nullptr) {
-        head = newNode;
-        return;
+        head = tail = newNode;
+    } else {
+        tail->next = newNode;
+        tail = newNode;
     }
-
-    Node* temp = head;
-    while (temp->next != nullptr) {
-        temp = temp->next;
-    }
-    temp->next = newNode;
+    count++;
 }
 
-void LinkedList::display() {
-    Node* temp = head;
-    while (temp != nullptr) {
-        temp->data.display();
-        temp = temp->next;
+void LinkedList::display() const {
+    for (Node* temp = head; temp != nullptr; temp = temp->next) {
+        temp->data.display();   // display() must be marked const in Internship
     }
 }
 
-
-vector<Internship> LinkedList::getAllInternships() {
+vector<Internship> LinkedList::getAllInternships() const {
     vector<Internship> internships;
-    Node* temp = head;
+    internships.reserve(count);  // one allocation instead of repeated regrowth
 
-    while (temp != nullptr) {
+    for (Node* temp = head; temp != nullptr; temp = temp->next) {
         internships.push_back(temp->data);
-        temp = temp->next;
     }
-
     return internships;
 }

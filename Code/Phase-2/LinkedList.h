@@ -1,22 +1,29 @@
 #pragma once
-
 #include <vector>
-#include "../Phase-1/Internship.h"
+#include "Internship.h"
+using namespace std;
 
-struct Node {
+class Node {
+public:
     Internship data;
     Node* next;
-
     Node(Internship i);
 };
 
 class LinkedList {
 private:
     Node* head;
+    Node* tail;      
+    size_t count;   
 
 public:
     LinkedList();
-    void insert(Internship i);
-    void display();
-    std::vector<Internship> getAllInternships();
+    ~LinkedList();                              
+    LinkedList(const LinkedList&) = delete;     
+    LinkedList& operator=(const LinkedList&) = delete;
+
+    void insert(const Internship& i);
+    void display() const;
+    vector<Internship> getAllInternships() const;
+    size_t size() const { return count; }
 };
