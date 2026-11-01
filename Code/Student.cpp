@@ -3,23 +3,40 @@
 #include <iostream>
 using namespace std;
 
+
 void Student::input(){
+    skills.clear();
+
     cout << "enter name\n";
     getline(cin, name);
+
     cout << "enter branch\n";
     getline(cin, branch);
+
     cout << "enter year\n";
     cin >> year;
+
     cout << "enter cgpa\n";
     cin >> cgpa;
+
     cin.ignore();
+
     cout << "enter skills in comma separated form\n";
+
     string skillInput;
-    getline(cin,skillInput);
+    getline(cin, skillInput);
+
     stringstream ss(skillInput);
     string oneSkill;
-    while(getline(ss,oneSkill,',')){
-        skills.push_back(oneSkill);
+
+    while(getline(ss, oneSkill, ',')){
+        size_t start = oneSkill.find_first_not_of(" \t");
+        if(start != string::npos){
+            size_t end = oneSkill.find_last_not_of(" \t");
+            oneSkill = oneSkill.substr(start, end - start + 1);
+
+            skills.push_back(oneSkill);
+        }
     }
 }
 
