@@ -81,3 +81,13 @@ Code/Phase-1/*.loop-backup
 Code/Phase-2/*.backup
 Code/Phase-2/*.before_matching_fix
 Code/Phase-2/*.finalfix-backup
+
+# InternMatch local backup files
+Code/*.backup
+Code/*.before_matching_fix
+Code/*.finalfix-backup
+Code/*.loop-backup
+
+# Local executable files
+internmatch_test
+Code/main
