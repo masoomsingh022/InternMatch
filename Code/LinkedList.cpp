@@ -28,13 +28,13 @@ void LinkedList::insert(const Internship& i) {
 
 void LinkedList::display() const {
     for (Node* temp = head; temp != nullptr; temp = temp->next) {
-        temp->data.display();   
+        temp->data.display();
     }
 }
 
 vector<Internship> LinkedList::getAllInternships() const {
     vector<Internship> internships;
-    internships.reserve(count);  
+    internships.reserve(count);
 
     for (Node* temp = head; temp != nullptr; temp = temp->next) {
         internships.push_back(temp->data);

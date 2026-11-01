@@ -1,8 +1,8 @@
 #ifndef MATCHENGINE_H
 #define MATCHENGINE_H
 
-#include "../Phase-1/Student.h"
-#include "../Phase-1/Internship.h"
+#include "Student.h"
+#include "Internship.h"
 
 // Returns 1 if eligible, 0 if not eligible, and -1 if requirements are missing.
 int getEligibilityStatus(Student s, Internship i);

@@ -70,19 +70,18 @@ struct MatchResult {
     float score;
 };
 
-int main() {
-    Student student;
-    student.input();
-
-    cout << "\nFetching internships...\n";
+vector<MatchResult> getTopMatches(Student& student, string& error)
+{
+    vector<MatchResult> results;
+    error.clear();
 
     string response = fetchData(
         "https://www.arbeitnow.com/api/job-board-api"
     );
 
     if (response.empty()) {
-        cout << "Unable to fetch internships. Try again.\n";
-        return 1;
+        error = "Unable to fetch internships. Try again.";
+        return results;
     }
 
     try {
@@ -126,6 +125,7 @@ int main() {
             }
 
             sort(skills.begin(), skills.end());
+
             skills.erase(
                 unique(skills.begin(), skills.end()),
                 skills.end()
@@ -141,10 +141,10 @@ int main() {
         vector<Internship> internships =
             internshipList.getAllInternships();
 
-        vector<MatchResult> results;
         vector<string> studentSkills = student.getSkills();
 
         for (int i = 0; i < (int)internships.size(); i++) {
+
             int matched = countMatchingSkills(
                 student, internships[i]
             );
@@ -165,27 +165,121 @@ int main() {
                  return a.score > b.score;
              });
 
-        cout << "\n====================================\n";
-        cout << "       TOP 5 INTERNSHIP MATCHES\n";
-        cout << "====================================\n";
-
-        int limit = min(5, (int)results.size());
-
-        if (limit == 0) {
-            cout << "No matching internships found.\n";
-        }
-
-        for (int i = 0; i < limit; i++) {
-            cout << "\nRank #" << i + 1 << "\n";
-            results[i].internship.display();
-            cout << "Match Score: "
-                 << results[i].score << "%\n";
-            cout << "------------------------------------\n";
+        if (results.size() > 5) {
+            results.erase(results.begin() + 5, results.end());
         }
     }
     catch (...) {
-        cout << "Error processing internship data.\n";
-        return 1;
+        error = "Error processing internship data.";
+        results.clear();
+    }
+
+    return results;
+}
+
+void printResults(vector<MatchResult>& results)
+{
+    cout << "\n====================================\n";
+    cout << "       TOP 5 INTERNSHIP MATCHES\n";
+    cout << "====================================\n";
+
+    if (results.empty()) {
+        cout << "No matching internships found.\n";
+    }
+
+    for (int i = 0; i < (int)results.size(); i++) {
+
+        cout << "\nRank #" << i + 1 << "\n";
+
+        results[i].internship.display();
+
+        cout << "Match Score: "
+             << results[i].score << "%\n";
+
+        cout << "------------------------------------\n";
+    }
+}
+
+int readChoice()
+{
+    string line;
+
+    if (!getline(cin, line))
+        return 4;
+
+    try {
+        return stoi(line);
+    }
+    catch (...) {
+        return 0;
+    }
+}
+int main()
+{
+    Student student;
+    bool profileEntered = false;
+
+    while (true)
+    {
+        cout << "\n========== INTERNMATCH ==========\n";
+        cout << "1. Enter Student Profile\n";
+        cout << "2. Find Internship Matches\n";
+        cout << "3. Open GUI (Coming Soon)\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+
+        int choice = readChoice();
+
+        if (choice == 1)
+        {
+            student = Student();
+            student.input();
+
+            profileEntered = true;
+
+            cout << "\nProfile saved successfully!\n";
+        }
+
+        else if (choice == 2)
+        {
+            if (profileEntered == false)
+            {
+                cout << "\nPlease enter your profile first.\n";
+                continue;
+            }
+
+            cout << "\nFetching internships...\n";
+
+            string error;
+
+            vector<MatchResult> results =
+                getTopMatches(student, error);
+
+            if (!error.empty())
+            {
+                cout << error << endl;
+            }
+            else
+            {
+                printResults(results);
+            }
+        }
+
+        else if (choice == 3)
+        {
+            cout << "GUI coming soon\n";
+        }
+
+        else if (choice == 4)
+        {
+            cout << "\nThank you for using InternMatch!\n";
+            break;
+        }
+
+        else
+        {
+            cout << "\nInvalid choice. Please try again.\n";
+        }
     }
 
     return 0;
