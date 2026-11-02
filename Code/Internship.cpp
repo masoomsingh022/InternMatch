@@ -44,3 +44,6 @@ vector<string> Internship::getRequiredSkills() {
 string Internship::getRole() {
     return role;
 }
+string Internship::getCompany() {
+    return company;
+}

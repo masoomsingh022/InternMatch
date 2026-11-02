@@ -14,9 +14,10 @@ class Student : public Person {
       vector<string> skills;
 
     public:
-       void input();
-       float getcgpa();
-       string getBranch();
-       vector<string> getSkills();
-       void display();
+    void input();
+    void setProfile(string n, string b, int y, float c, string skillsCsv);
+    float getcgpa();
+    string getBranch();
+    vector<string> getSkills();
+    void display();
 };

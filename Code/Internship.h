@@ -24,4 +24,5 @@ public:
     string getEligibleBranch();
     vector<string> getRequiredSkills();
     string getRole();
+    string getCompany();
 };
