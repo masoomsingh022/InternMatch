@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InternMatch | Smart Internship Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">✦ InternMatch</div>
+        <span class="nav-tag">SMART CAREER MATCHING</span>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <div>
+                <span class="eyebrow">YOUR CAREER STARTS HERE</span>
+                <h1>Find opportunities<br>that <span>match you.</span></h1>
+                <p>Discover internships based on your skills, academic profile and interests.</p>
+            </div>
+            <div class="hero-art">🎯</div>
+        </section>
+
+        <section class="profile-section">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">GET STARTED</span>
+                    <h2>Student Profile</h2>
+                    <p>Enter your details to discover relevant opportunities.</p>
+                </div>
+                <span class="step">01 / PROFILE</span>
+            </div>
+
+            <form id="profileForm">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="field">
+                        <label for="branch">Branch</label>
+                        <input type="text" id="branch" placeholder="e.g. CSE" required>
+                    </div>
+                    <div class="field">
+                        <label for="year">Academic Year</label>
+                        <input type="number" id="year" min="1" max="5" placeholder="e.g. 2" required>
+                    </div>
+                    <div class="field">
+                        <label for="cgpa">CGPA</label>
+                        <input type="number" id="cgpa" min="0" max="10" step="0.01" placeholder="e.g. 8.85" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="resume">Resume Upload <span class="optional">OPTIONAL · TXT ONLY</span></label>
+                    <input type="file" id="resume" accept=".txt">
+                    <small id="resumeMessage">Upload a text resume to detect skills automatically.</small>
+                </div>
+
+                <div class="field">
+                    <label for="skills">Your Skills</label>
+                    <input type="text" id="skills" placeholder="Python, SQL, Java, Git..." required>
+                    <small>Separate skills using commas. You can edit your skills.</small>
+                </div>
+
+                <button type="submit" id="submitBtn">Find My Internships →</button>
+            </form>
+        </section>
+
+        <section class="results-section">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">PERSONALIZED FOR YOU</span>
+                    <h2>Internship Matches</h2>
+                    <p>Explore opportunities ranked by skill compatibility.</p>
+                </div>
+                <span class="result-count" id="resultCount">TOP 5</span>
+            </div>
+
+            <div id="results" class="results-grid">
+                <div class="empty-state">
+                    <div class="empty-icon">✧</div>
+                    <h3>Your opportunities await!</h3>
+                    <p>Complete your student profile to find your best internship matches.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>InternMatch · Smart Internship Recommendation System</span>
+            <span>Built with C++ & DSA</span>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+DEMO RESUME - DATA SCIENCE STUDENT
+
+Name: Kabir Mehta
+Branch: Computer Science
+Academic Year: 2
+CGPA: 8.75
+
+Skills:
+Python
+SQL
+Excel
+Data Science
+Machine Learning
+Java
+
+Interests:
+Data Analyst Internships
+Data Science
+Business Analytics
+
+This is a fictional resume created for demonstrating InternMatch.

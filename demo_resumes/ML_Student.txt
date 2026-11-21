@@ -1,0 +1,21 @@
+DEMO RESUME - MACHINE LEARNING STUDENT
+
+Name: Aarav Sharma
+Branch: Computer Science
+Academic Year: 2
+CGPA: 8.85
+
+Skills:
+Python
+SQL
+Machine Learning
+Deep Learning
+Data Science
+Git
+
+Interests:
+Machine Learning Internships
+AI Research
+Data Analytics
+
+This is a fictional resume created for demonstrating InternMatch.

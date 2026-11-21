@@ -45,18 +45,29 @@ bool checkEligibility(Student s, Internship i) {
 }
 
 int countMatchingSkills(Student s, Internship i) {
+
     int count = 0;
 
     vector<string> studentSkills = s.getSkills();
     vector<string> requiredSkills = i.getRequiredSkills();
 
     for (int x = 0; x < (int)studentSkills.size(); x++) {
+
         string studentSkill = normalizeText(studentSkills[x]);
 
         for (int y = 0; y < (int)requiredSkills.size(); y++) {
+
             string requiredSkill = normalizeText(requiredSkills[y]);
 
-            if (studentSkill == requiredSkill) {
+            // React and React.js
+            // HTML and HTML5
+            // CSS and CSS3
+
+            if (studentSkill == requiredSkill ||
+                (studentSkill == "react" && requiredSkill == "react.js") ||
+                (studentSkill == "html" && requiredSkill == "html5") ||
+                (studentSkill == "css" && requiredSkill == "css3")) {
+
                 count++;
                 break;
             }

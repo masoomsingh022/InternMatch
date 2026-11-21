@@ -1,0 +1,22 @@
+DEMO RESUME - WEB DEVELOPER
+
+Name: Riya Verma
+Branch: Computer Science
+Academic Year: 2
+CGPA: 8.60
+
+Skills:
+HTML
+CSS
+JavaScript
+React
+Node.js
+MongoDB
+Git
+
+Interests:
+Frontend Development
+Web Development
+Software Engineering
+
+This is a fictional resume created for demonstrating InternMatch.
