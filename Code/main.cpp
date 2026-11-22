@@ -473,7 +473,7 @@ void startServer() {
     cout << "\nGUI running at http://localhost:8080\n";
     cout <<"Open this link in your browser. Press Ctrl+C to stop the server.\n";
 
-    svr.listen("127.0.0.1", 8080);
+    svr.listen("0.0.0.0", 8080);
 }
 
 

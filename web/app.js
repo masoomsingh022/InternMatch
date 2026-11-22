@@ -78,34 +78,41 @@ function createInternshipCard(internship, index) {
     title.textContent = internship.title;
 
     const company = document.createElement("p");
+    company.className = "company-name";
     company.textContent = "Company: " + internship.company;
 
-    const skills = document.createElement("p");
-    skills.textContent = "Relevant Keywords: " + internship.skills.join(", ");
+    const skillsHeading = document.createElement("p");
+    skillsHeading.className = "skills-heading";
+    skillsHeading.textContent = "Relevant Keywords";
+
+    const skillsContainer = document.createElement("div");
+    skillsContainer.className = "skill-tags";
+
+    internship.skills.forEach(function(skill) {
+        const tag = document.createElement("span");
+        tag.className = "skill-tag";
+        tag.textContent = skill;
+        skillsContainer.appendChild(tag);
+    });
 
     const score = document.createElement("p");
     score.className = "score";
     score.textContent = "Match Score: " + internship.score + "%";
 
     const progress = document.createElement("div");
-    progress.style.height = "8px";
-    progress.style.marginTop = "10px";
-    progress.style.background = "#e8edf5";
-    progress.style.borderRadius = "10px";
-    progress.style.overflow = "hidden";
+    progress.className = "match-progress";
 
     const bar = document.createElement("div");
-    bar.style.height = "100%";
+    bar.className = "match-progress-bar";
     bar.style.width = Math.max(0, Math.min(100, internship.score)) + "%";
-    bar.style.background = "#3975dc";
-    bar.style.borderRadius = "10px";
 
     progress.appendChild(bar);
 
     card.appendChild(rank);
     card.appendChild(title);
     card.appendChild(company);
-    card.appendChild(skills);
+    card.appendChild(skillsHeading);
+    card.appendChild(skillsContainer);
     card.appendChild(score);
     card.appendChild(progress);
 
@@ -194,3 +201,93 @@ form.addEventListener("submit", async function(event) {
         submitBtn.textContent = "Find My Internships →";
     }
 });
+
+
+// GOOGLE AUTHENTICATION
+
+const loginScreen = document.getElementById("loginScreen");
+const googleLoginBtn = document.getElementById("googleLoginBtn");
+const loginMessage = document.getElementById("loginMessage");
+const navbar = document.querySelector(".navbar");
+const mainContainer = document.querySelector("main.container");
+
+const logoutBtn = document.getElementById("logoutBtn");
+const userName = document.getElementById("userName");
+const userEmail = document.getElementById("userEmail");
+const userPhoto = document.getElementById("userPhoto");
+
+
+// Google login button
+googleLoginBtn.addEventListener("click", async function() {
+
+    googleLoginBtn.disabled = true;
+    googleLoginBtn.textContent = "Connecting to Google...";
+    loginMessage.textContent = "";
+
+    try {
+
+        await window.firebaseReady;
+
+        await window.firebaseAuth.signInWithPopup(
+            window.googleProvider
+        );
+
+    }
+    catch (error) {
+
+        console.error("Google login error:", error);
+
+        loginMessage.textContent =
+            error.message || "Unable to sign in. Please try again.";
+
+    }
+    finally {
+
+        googleLoginBtn.disabled = false;
+        googleLoginBtn.innerHTML =
+            "<span>G</span> Continue with Google";
+    }
+});
+
+
+// Check login status
+window.firebaseAuth.onAuthStateChanged(function(user) {
+
+    if (user) {
+
+        loginScreen.hidden = true;
+        navbar.hidden = false;
+        mainContainer.hidden = false;
+
+        userName.textContent = user.displayName || "Student";
+        userEmail.textContent = user.email || "";
+
+        userPhoto.src =
+            user.photoURL || "https://placehold.co/100x100";
+
+    }
+    else {
+
+        loginScreen.hidden = false;
+        navbar.hidden = true;
+        mainContainer.hidden = true;
+
+    }
+});
+
+
+// Logout button
+logoutBtn.addEventListener("click", async function() {
+
+    try {
+
+        await window.firebaseAuth.signOut();
+
+    }
+    catch (error) {
+
+        alert("Unable to sign out. Please try again.");
+
+    }
+});
+

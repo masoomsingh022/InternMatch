@@ -7,12 +7,41 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
+    
+<section id="loginScreen" class="login-screen">
+    <div class="login-card">
+        <div class="login-logo">✦ InternMatch</div>
+        <p class="login-label">YOUR CAREER STARTS HERE</p>
+        <h1>Find the internship<br>that matches you.</h1>
+        <p class="login-description">
+            Sign in to create your student profile and discover opportunities.
+        </p>
+        <button type="button" id="googleLoginBtn" class="google-login">
+            <span>G</span> Continue with Google
+        </button>
+        <p id="loginMessage" class="login-message"></p>
+        <p class="login-note">Secure sign-in powered by Google</p>
+    </div>
+</section>
+
+<nav class="navbar" hidden>
         <div class="brand">✦ InternMatch</div>
         <span class="nav-tag">SMART CAREER MATCHING</span>
     </nav>
 
-    <main class="container">
+    <main class="container" hidden>
+        <div id="accountBar" class="account-bar">
+            <div class="account-user">
+                <img id="userPhoto" src="" alt="Profile">
+                <div>
+                    <strong id="userName"></strong>
+                    <small id="userEmail"></small>
+                </div>
+            </div>
+            <button type="button" id="logoutBtn" class="logout-button">
+                Sign Out
+            </button>
+        </div>
         <section class="hero">
             <div>
                 <span class="eyebrow">YOUR CAREER STARTS HERE</span>
@@ -93,6 +122,9 @@
         </footer>
     </main>
 
-    <script src="app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
